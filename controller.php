@@ -38,6 +38,35 @@ class Controller extends \Controller {
 				array('order' => 'priority DESC, due_date')
 			);
 		}
+
+		if($f3->get("GET.group_id")) {
+			// Add sorted projects
+			$backlog = array();
+			$sortModel = new \Model\Issue\Backlog;
+			$sortModel->load(array("user_id = ? AND sprint_id IS NULL", $f3->get("GET.group_id")));
+			$sortArray = array();
+			if($sortModel->id) {
+				$sortArray = json_decode($sortModel->issues);
+				foreach($sortArray as $id) {
+					foreach($projects as $p) {
+						if($p->id == $id) {
+							$backlog[] = $p;
+						}
+					}
+				}
+			}
+
+			// Add remaining projects
+			foreach($projects as $p) {
+				if(!in_array($p->id, $sortArray)) {
+					$backlog[] = $p;
+				}
+			}
+
+			// Set projects to sorted result
+			$projects = $backlog;
+		}
+
 		$f3->set("projects", $projects);
 
 		// Load existing votes
@@ -93,6 +122,35 @@ class Controller extends \Controller {
 				array('order' => 'priority DESC, due_date')
 			);
 		}
+
+		if($f3->get("GET.group_id")) {
+			// Add sorted projects
+			$backlog = array();
+			$sortModel = new \Model\Issue\Backlog;
+			$sortModel->load(array("user_id = ? AND sprint_id IS NULL", $f3->get("GET.group_id")));
+			$sortArray = array();
+			if($sortModel->id) {
+				$sortArray = json_decode($sortModel->issues);
+				foreach($sortArray as $id) {
+					foreach($projects as $p) {
+						if($p->id == $id) {
+							$backlog[] = $p;
+						}
+					}
+				}
+			}
+
+			// Add remaining projects
+			foreach($projects as $p) {
+				if(!in_array($p->id, $sortArray)) {
+					$backlog[] = $p;
+				}
+			}
+
+			// Set projects to sorted result
+			$projects = $backlog;
+		}
+
 		$f3->set("projects", $projects);
 
 		// Load all votes
