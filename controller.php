@@ -9,7 +9,8 @@ class Controller extends \Controller {
 		$filter = "";
 		if($f3->get("GET.group_id")) {
 			$group = new \Model\User\Group();
-			$users = $group->find(array("group_id = ?", $params["groupid"]));
+			$users = $group->find(array("group_id = ?", $f3->get("GET.group_id")));
+			$filter_users = array();
 			foreach($users as $u) {
 				$filter_users[] = $u["user_id"];
 			}
@@ -64,7 +65,7 @@ class Controller extends \Controller {
 		$filter = "";
 		if($f3->get("GET.group_id")) {
 			$group = new \Model\User\Group();
-			$users = $group->find(array("group_id = ?", $params["groupid"]));
+			$users = $group->find(array("group_id = ?", $f3->get("GET.group_id")));
 			foreach($users as $u) {
 				$filter_users[] = $u["user_id"];
 			}
@@ -94,7 +95,7 @@ class Controller extends \Controller {
 		}
 		$f3->set("projects", $projects);
 
-		// Load existing votes
+		// Load all votes
 		$vote = new Model\Vote;
 		$project_ids = array();
 		foreach($projects as $p) {
@@ -106,7 +107,8 @@ class Controller extends \Controller {
 		foreach($votes as $v) {
 			$vote_array[$v->project_id][] = array(
 				"user_name" => $v->user_name,
-				"vote" => $v->vote
+				"vote" => $v->vote,
+				"class" => is_numeric($v->vote) ? ($v->vote > 10 ? "high" : "low") : "other"
 			);
 		}
 		$f3->set("votes", $vote_array);

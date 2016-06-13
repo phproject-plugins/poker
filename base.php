@@ -17,9 +17,9 @@ class Base extends \Plugin {
 		$f3 = \Base::instance();
 
 		// Set up routes
-        $f3->route("GET /backlog/poker", "Plugin\Poker\Controller->index");
-        $f3->route("GET /backlog/poker/results", "Plugin\Poker\Controller->results");
-        $f3->route("POST /backlog/poker", "Plugin\Poker\Controller->post");
+		$f3->route("GET /backlog/poker", "Plugin\Poker\Controller->index");
+		$f3->route("GET /backlog/poker/results", "Plugin\Poker\Controller->results");
+		$f3->route("POST /backlog/poker", "Plugin\Poker\Controller->post");
 	}
 
 	/**
