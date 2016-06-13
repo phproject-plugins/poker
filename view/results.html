@@ -9,22 +9,20 @@
 			margin-left: 15px;
 		}
 		.vote-card {
-			width: 48px;
-			height: 64px;
+			width: 64px;
+			height: 72px;
 			margin: 0 auto;
-			font-size: 32px;
-			line-height: 64px;
+			font-size: 28px;
+			line-height: 72px;
 			color: #f5f5f5;
 			border-radius: 5px;
+			background-color: #95a5a6;
 		}
 		.vote-low {
 			background-color: #3498db;
 		}
 		.vote-high {
 			background-color: #e74c3c;
-		}
-		.vote-other {
-			background-color: #95a5a6;
 		}
 	</style>
 </head>
@@ -46,7 +44,7 @@
 						<repeat group="{{ @votes[@project.id] }}" value="{{ @vote }}">
 							<div class="vote-container">
 								<div class="vote-card vote-{{ @vote.class }}">
-									{{ @vote.vote == "inf" ? "&infin;" : @vote.vote }}
+									{{ @vote.vote }}
 								</div>
 								{{ strtok(@vote.user_name, " ") }}
 							</div>

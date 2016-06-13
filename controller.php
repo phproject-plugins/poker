@@ -108,7 +108,7 @@ class Controller extends \Controller {
 			$vote_array[$v->project_id][] = array(
 				"user_name" => $v->user_name,
 				"vote" => $v->vote,
-				"class" => is_numeric($v->vote) ? ($v->vote > 10 ? "high" : "low") : "other"
+				"class" => $v->vote > 10 ? "high" : "low"
 			);
 		}
 		$f3->set("votes", $vote_array);
